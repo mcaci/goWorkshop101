@@ -75,15 +75,16 @@ Hello, world!
 ```
 </v-click>
 
-<v-click>
+<v-clicks>
 
-or
+`go run` will build and execute the code.
+
+You may create the executable with `go build`, for example:
 
 ```bash
-$ go build -o mymain main.go; ./mymain
-Hello, world!
+$ go build -o hello-world main.go
 ```
-</v-click>
+</v-clicks>
 
 ---
 transition: fade-out
@@ -92,7 +93,33 @@ layout: two-cols-header
 
 # Hello world!
 
-Let's analyze the code
+What can we learn?
+
+::left::
+
+1. how to create a function
+1.1 main as the entry point 
+2. how to call a function: _package_name.function_name_
+3. what is a package and how to handle it
+3.1 package definition
+3.2 import statement
+4. ! not mandatory 
+
+
+:: right::
+
+show the code examples along the way
+
+theory now
+
+---
+transition: fade-out
+layout: two-cols-header
+---
+
+# Hello world!
+
+What can we learn?
 
 ::left::
 
