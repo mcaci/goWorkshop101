@@ -54,8 +54,33 @@ hide: true
 ---
 
 ---
-src: ./pages/section1-helloworld.md
+src: ./pages/helloworld.md
+hide: true
+---
+
+---
+src: ./pages/milestone1.md
 hide: false
+---
+
+---
+src: ./pages/milestone2.md
+hide: false
+---
+
+---
+src: ./pages/milestone3.md
+hide: true
+---
+
+---
+src: ./pages/milestone4.md
+hide: true
+---
+
+---
+src: ./pages/conclusions.md
+hide: true
 ---
 
 ---
