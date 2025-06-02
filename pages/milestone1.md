@@ -13,15 +13,20 @@ transition: fade-out
 
 Writing text to a file
 
-Objective: Update the hello world example to create a file and write “hello world” on it
+## Objective
 
-Bonus: customize the text to write
+Update the hello world example to create a file and write “hello world” on it
+
+## Bonus
+
+Customize the text to write
 
 <v-click>
 
-For this milestone we will:
-- Introduce __varibles__ and __conditionals__ in Go
-- Use __functions calls__ to the standard library as seen in the "hello world" example
+## In this milestone
+
+- We will introduce __varibles__ and __conditionals__
+- We will use __functions calls__ to the standard library as seen in the "hello world" example
 </v-click>
 
 ---
@@ -31,28 +36,29 @@ layout: two-cols-header
 
 # Variables
 
-How Go declares and assigns them
+</br>
 
 ::left::
 <v-clicks>
 
-There are two ways to declare variables:
+_There are two ways to declare variables_
 
 - short initialization `:=` operator
 - `var` keyword
-    -  ⚠️ __type always goes after the name__
+  - ⚠️ __type always goes after the name__
 
-You can do multiple assignments:
+_You can do multiple assignments_
 - With hardcoded values
 - Accepting the return value(s) of a function call
 
-Any unused variables are considered compiler errors, use the _blank identifier_ `_` to ignore them
+_Unused variables are compiler errors_
+- Use the _blank identifier_ `_` to ignore them
 
 </v-clicks>
 
 ::right::
 
-```go{all|1-5|1-5|7-8|10|all}{at:2}
+```go{all|1-5|1-5|7-8|10}{at:2}
 a := 1
 
 var hello string
@@ -72,21 +78,23 @@ layout: two-cols-header
 
 # Conditionals
 
-Similar as in other languages but
+</br>
 
 ::left::
 
 <v-click>
 
-For the `if` statements:
+## `if`
+
 - Parenteshis `()` are not required inside conditions
 - Brackets `{}` are always required around the body
 </v-click>
 
 <v-click>
 
-For the `switch` statements:
-- __Can switch on values of any type__
+## `switch`
+
+- _Can switch on values of any type_
 - `case` values are of the same type of the value on `switch`
 - The `break` keyword is implied
 </v-click>
@@ -119,7 +127,6 @@ case float64(i)/10.0 > math.Sqrt(float64(i)):
 default:
     fmt.Println(i)
 }
-
 ```
 
 ---
@@ -147,7 +154,6 @@ Bonus steps:
 - Take the text to write as input of the application
   - use the `flag` package
 - Test the `defer` keyword when closing the file
-
 
 ::right::
 

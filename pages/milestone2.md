@@ -11,18 +11,21 @@ transition: fade-out
 
 # Milestone 2
 
-Looping through a text file in input
+Listing items from an input text file
 
-Objective: Update the code from milestone 1 to read and output a text file
+## Objective
 
-Bonus: Use the `strconv` package to test what kind of input we receive
+Update the code from milestone 1 to from a text file
+
+## Bonus
+
+Test the type of data read from the input
 
 <v-click>
 
-For this milestone we will introduce:
-- types
-- loops
+## In this milestone
 
+- We will introduce __types__, __zero values__, __pointers__ and __loops__
 </v-click>
 
 ---
@@ -32,7 +35,7 @@ layout: two-cols-header
 
 # Types in Go
 
-All the categories
+</br>
 
 ::left::
 
@@ -48,7 +51,7 @@ All the categories
   - _complex type_ used to group fields
 -  __methods__ are functions attached to custom types
     - the type between `()` is called __receiver__
-    - custom types and methods are the closest structure to a class in other languages
+    - custom types and methods are the closest structure to _classes_ in other languages
 </v-clicks>
 
 ::right::
@@ -77,7 +80,6 @@ func (p Person) String() string { // method
 
 <arrow v-click="[10, 11]" x1="700" y1="350" x2="590" y2="390" color="#953" width="2" arrowSize="1" />
 
-
 ---
 transition: fade-out
 layout: two-cols-header
@@ -85,15 +87,17 @@ layout: two-cols-header
 
 # Zero values
 
-Zero values
+</br>
 
 ::left::
 
-<v-clicks>
+_Variables in Go are always assigned to a value_
 
-All variables in Go are assigned to a value
-- if not explicitly assigned Go assigns a default value for the type,
-- This is called the __zero value__
+<v-clicks depth=2>
+
+- If not explicitly assigned, a default value is assigned
+- This default value is called the __zero value__
+- The zero value depends on the type
   - `""` (empty string) for strings
   - `0` for numeric types
   - `false` for booleans
@@ -104,13 +108,14 @@ All variables in Go are assigned to a value
 
 ::right::
 
-```go{none|1-13|1-13|15-17|15-17|19-22|19-22}{at:1}
+```go{all|1|2-3|4|6|8-11}{at:4}
 string = ""
 [u|]int[|8|16|32|64], float[32|64], complex[64|128] = 0
 byte, rune = 0
 bool = false
 
 type MyAge int = 0 // because it is an int
+
 type Person struct {
 	Name string
 	Age MyAge
@@ -124,28 +129,53 @@ layout: two-cols-header
 
 # Pointers
 
-Pointers
+</br>
 
 ::left::
 
 <v-clicks>
 
-They work as in C/C++: use `*` to declare a pointer and to dereference and `&` to take the address of a variable
+_Basic operations_
 
-All custom types methods (type aliases and complex type) can have pointer or value receiver.
+Use `*` to declare a pointer and to dereference it
 
-A method with pointer receiver can modify the content of the type
+Use `&` to take the address of a variable
 
-A method with value receiver cannot
+`&` can also be used to take the address of a complex struct value
+
+_In addition_
+
+Method can have __pointer__ or __value__ receivers
+
+- With pointer receiver: the content of the receiver can be modified
+- With value receiver: modification to the content of the receiver are lost at the end of the method
 
 </v-clicks>
 
 ::right::
 
-```go{none|1-13|1-13|15-17|15-17|19-22|19-22}{at:1}
-var p *Person = &{Name: “Al”}
+```go{none|1,3|4|2|all}{at:2}
+var p *Person
+p = = &{Name: “Al”}
 al := *p
 p = &al
+```
+
+<br/>
+
+```go{none|all}{at:6}
+type Person struct {
+	Name string
+	Age MyAge
+}
+
+func (p *Person) SetName(name string) {
+  p.Name = name
+}
+
+func (p Person) GetName() string { 
+  return p.Name
+}
 ```
 
 ---
@@ -155,68 +185,48 @@ layout: two-cols-header
 
 # Loops
 
-For in all its forms
+<br/>
 
 ::left::
 
+_Only_ the `for` _kewyord exist for loops_
+
 <v-clicks>
 
-Similar as other languages but without `()` and mandatory `{}`
+- Parenteshis `()` are not required after `for`
+- Brackets `{}` are always required around the body
 
-Only `for` kewyord exist for loops
+_While is written as_ `for condition`
 
-Can be interrupted with the `break` keyword
+Use `for...range` syntax to count up to $n-1$
+- But not only...
 
-Meaning of the two variables in the `for-range` syntax
-<table>
-  <tr>
-    <th>type</th>
-    <th>i</th>
-    <th>v</th>
-  </tr>
-  <tr>
-    <td>string</td>
-    <td>index</td>
-    <td>character at position i</td>
-  </tr>
-  <tr>
-    <td>array/slice</td>
-    <td>index</td>
-    <td>element at position i</td>
-  </tr>
-  <tr>
-    <td>map</td>
-    <td>key</td>
-    <td>value</td>
-  </tr>
-</table>
+_All loops can be interrupted with the_ `break` _keyword_
 
 </v-clicks>
 
+<arrow v-click="5" x1="460" y1="450" x2="500" y2="440" color="#953" width="2" arrowSize="1" />
+
 ::right::
 
-```go{none|all|all|18-20|14-22|17|all}{at:1}
+```go{none|1-2|4-10|12-18|all}{at:1}
 // regular for loop
 for i := 0; i < 10; i++ {} 
 
 // while loop
-var n []int
-// len is a builtin function, it computes the length of
-// strings, arrays, slices, maps and channels
-for len(n) < 3 { 
-  n = append(n, 1)
+var n int
+for n < 3 { 
+  n++
 }
 
-for true {} // infinite loop
+for true {} // or `for {}` are the infinite loop
 
-// for-range syntax
-// iterates on all items of
-// strings, arrays, slices, maps and channels
-for i, v := range n { 
+// for-range syntax counting from 0 to 9
+for i := range 10 { 
   if i > 1 {
     break
   }
-  fmt.Println(i, v) // 0 1\n1 1\n
+  fmt.Println(i) // prints 0 and 1 in two lines
 }
 
 ```
@@ -228,28 +238,26 @@ layout: two-cols-header
 
 # Steps for Milestone 2
 
-Writing text to a file: use pkg.go.dev to read the content of the packages
+Listing items from an input text file: use pkg.go.dev to read the content of the packages
 
 ::left::
 
 In your `main` function:
 
-1. Create a file, using the `os` package
-2. If there are any errors during the file creation
+1. Read the input file, using the `os` package
+2. If there are any errors during the file read
    - log them and exit with the `log` package
-3. Write the "hello, world!" string to the file 
-    - use the `fmt` package
+3. Print each line, using the `fmt` package
 4. Close the file
 
-Bonus steps:
+Bonus steps (during step 3):
 
-- Take the text to write as input of the application
-  - use the `flag` package
-- Test the `defer` keyword when closing the file
-
+- Test the type of the value from the input line with `strconv` package
+- Save the line in a custom type a create a `String() string` method to return the its value as a `string`
 
 ::right::
 ⚠️ __type always goes after the name__
+
 <v-click>
 ````md magic-move {lines: true}
 ```go{all|10|11-13|14|15|all}
