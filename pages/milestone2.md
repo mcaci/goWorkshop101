@@ -23,9 +23,11 @@ Test the type of data read from the input
 
 <v-click>
 
-## In this milestone
+## What we will see/use
 
-- We will introduce __types__, __zero values__, __pointers__ and __loops__
+- First view on __types__ and __zero value__ assignments
+- __Pointers__
+- __Loops__
 </v-click>
 
 ---
@@ -33,23 +35,25 @@ transition: fade-out
 layout: two-cols-header
 ---
 
-# Types in Go
+# Custom types
 
-</br>
+<br/>
+
+_There are three categories of types in Go_
 
 ::left::
 
 <v-clicks depth=2>
 
-- __primitive__ types
+- __Primitives__
   - `string`: immutable sequence of characters
   - numeric types
   - `bool`
-- __internal__ types
-- __custom__ types
-  - _type aliasing_ used to rename any type
-  - _complex type_ used to group fields
--  __methods__ are functions attached to custom types
+- __Internal__
+- __Custom__
+  - _type aliasing_
+  - _complex type_
+	- Functions can be attached to custom types
     - the type between `()` is called __receiver__
     - custom types and methods are the closest structure to _classes_ in other languages
 </v-clicks>

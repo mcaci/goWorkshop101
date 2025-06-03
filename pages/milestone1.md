@@ -19,14 +19,15 @@ Update the hello world example to create a file and write “hello world” on i
 
 ## Bonus
 
-Customize the text to write
+Customize the text in input instead of using "hello world"
 
 <v-click>
 
-## In this milestone
+## What we will see/use
 
-- We will introduce __varibles__ and __conditionals__
-- We will use __functions calls__ to the standard library as seen in the "hello world" example
+- __Variables__ and a first look on __Types__
+- __Conditionals__
+- __Functions calls__ to the standard library as seen in the "hello world" example
 </v-click>
 
 ---
@@ -70,6 +71,63 @@ f, err := os.Create("myFile") // returns a file pointer and an error
 
 f, _ := os.Create("myFile") // the second value is not assigned
 ```
+
+
+---
+transition: fade-out
+layout: two-cols-header
+---
+
+# First look on Types
+
+<br/>
+
+::left::
+
+<v-click>
+
+## _Primitives_
+</v-click>
+
+<v-clicks depth=2>
+
+- `string`
+  - immutable sequence of characters
+- Numeric types
+- `bool`
+</v-clicks>
+
+<v-click>
+
+## `error`
+</v-click>
+
+<v-clicks depth=2>
+
+- `error` is a __built-in type__ of type __interface__
+- In this context, an __interface__ is a set of methods
+- The `error` interface lists a single method
+  - `func Error() string`
+</v-clicks>
+
+::right::
+
+```go{none|1|2-3|4|all}{at:2}
+string
+[u|]int[|8|16|32|64], float[32|64], complex[64|128]
+byte, rune // aliases for uint8 and int
+bool
+```
+
+<br/>
+
+```go{none|1|3-6|all}{at:7}
+type error interface {
+    Error() string
+}
+
+type myCustomError string
+`9``
 
 ---
 transition: fade-out
