@@ -146,8 +146,9 @@ Bonus steps:
   - use the `flag` package
 - Test the `defer` keyword when closing the file
 
-
 ::right::
+
+⚠️ __type always goes after the name__
 
 <v-click>
 ````md magic-move {lines: true}

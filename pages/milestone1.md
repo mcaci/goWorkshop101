@@ -89,11 +89,10 @@ layout: two-cols-header
 ## _Primitives_
 </v-click>
 
-<v-clicks depth=2>
+<v-clicks>
 
-- `string`
-  - immutable sequence of characters
-- Numeric types
+- `string` -> immutable sequence of characters
+- Numeric types -> the most common are `int` and `float64`
 - `bool`
 </v-clicks>
 
@@ -102,17 +101,16 @@ layout: two-cols-header
 ## `error`
 </v-click>
 
-<v-clicks depth=2>
+<v-clicks>
 
 - `error` is a __built-in type__ of type __interface__
-- In this context, an __interface__ is a set of methods
-- The `error` interface lists a single method
-  - `func Error() string`
+- An __interface__ is a set of functions
+- The `error` interface lists a single function
 </v-clicks>
 
 ::right::
 
-```go{none|1|2-3|4|all}{at:2}
+```go{none|1|2-3|4|all|none}{at:2}
 string
 [u|]int[|8|16|32|64], float[32|64], complex[64|128]
 byte, rune // aliases for uint8 and int
@@ -120,14 +118,44 @@ bool
 ```
 
 <br/>
+<br/>
+<br/>
+<br/>
 
-```go{none|1|3-6|all}{at:7}
+```go{none|1|1-3|2}{at:6}
 type error interface {
     Error() string
 }
+```
 
-type myCustomError string
-`9``
+---
+transition: fade-out
+---
+
+# Zero values
+
+_Variables in Go are always assigned to a value_
+
+<v-clicks depth=2>
+
+- If not explicitly assigned, a default value is assigned
+- This default value is called the __zero value__
+- The zero value depends on the type
+  - `""` (empty string) for strings
+  - `0` for numeric types
+  - `false` for booleans
+  - `nil` (=not a value) for interfaces, like `error`
+
+</v-clicks>
+
+```go{none|1|2-3|4|6}{at:4}
+string = ""
+[u|]int[|8|16|32|64], float[32|64], complex[64|128] = 0
+byte, rune = 0
+bool = false
+
+error = nil // same for all interfaces
+```
 
 ---
 transition: fade-out
@@ -152,9 +180,9 @@ layout: two-cols-header
 
 ## `switch`
 
-- _Can switch on values of any type_
+- _Can switch on any single value of any type_
 - `case` values are of the same type of the value on `switch`
-- The `break` keyword is implied
+- The `break` keyword between cases is implied
 </v-click>
 
 <v-click>
@@ -164,7 +192,7 @@ layout: two-cols-header
 
 ::right::
 
-```go{all|1-4|6-20|13-20|all}{at:1}
+```go{all|1-4|6-20|13-20}{at:1}
 var i int
 if i > 0 {
 	fmt.Println(i)
@@ -203,15 +231,14 @@ In your `main` function:
 1. Create a file, using the `os` package
 2. If there are any errors during the file creation
    - log them and exit with the `log` package
-3. Write the "hello, world!" string to the file 
-    - use the `fmt` package
+3. Write the "hello, world!" string to the file
+    - with the `fmt` package or on the file itself
 4. Close the file
 
-Bonus steps:
+Bonus:
 
 - Take the text to write as input of the application
   - use the `flag` package
-- Test the `defer` keyword when closing the file
 
 ::right::
 
