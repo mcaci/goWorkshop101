@@ -11,121 +11,122 @@ transition: fade-out
 
 # Milestone 3
 
-Writing text to a file
+Creating, importing packages and testing them
 
-Objective: Extract the code of milestone 2 in a different package and add unit tests
+## Objective
+
+Extract the code of milestone 2 in a different package and add unit tests
 
 <v-click>
 
-For this milestone we will:
-- Introduce __packages and imports__ and __exported/unexported__ in Go
-- __unit tests__ using the standard library
+## What we will see/use
+
+- __Packages and imports__
+- create new __functions__
+- the concept of __Exported/Unexported__ (scope)
+- __Unit tests__ using the standard library
 </v-click>
 
 ---
 transition: fade-out
-layout: two-cols-header
 ---
 
-# Variables
+# Packages
 
-How Go declares and assigns them
+The smallest unit of Go code that can be distributed
 
-::left::
 <v-clicks>
 
-There are two ways to declare variables:
+A __package__ is a __set of symbols__ (functions, types, variables) that can be distributed to other packages to be used; in practice, it is a folder containing Go files
 
-- short initialization `:=` operator
-- `var` keyword
-    -  ⚠️ __type always goes after the name__
+All Go files in the same package must have the same package declaration at the beginning of the file
 
-You can do multiple assignments:
-- With hardcoded values
-- Accepting the return value(s) of a function call
-
-Any unused variables are considered compiler errors, use the _blank identifier_ `_` to ignore them
-
-</v-clicks>
-
-::right::
-
-```go{all|1-5|1-5|7-8|10|all}{at:2}
-a := 1
-
-var hello string
-var hello string = "hello, world!"
-var hello = "hello, world!"
-
-a, b, c := "hello", 1, "world"
-f, err := os.Create("myFile") // returns a file pointer and an error
-
-f, _ := os.Create("myFile") // the second value is not assigned
+```go
+package myPackage
 ```
+
+Importing a package differs if it comes from the standard library (`package_path`) or from a third-party `"module_path/package_path"`)
+
+```go
+import (
+  "fmt" // from standard library
+  “github.com/mcaci/lets-go-workshop/myPackage // from third-party
+  // github.com/mcaci/lets-go-workshop is the module_path (which can be taken in go.mod file)
+  // myimage is the package_path
+)
+```
+
+When importing third-party packages, run `go mod tidy` at the root of the project to download the Go modules that contain them
+</v-clicks>
 
 ---
 transition: fade-out
 layout: two-cols-header
 ---
 
-# Conditionals
+# Functions
 
-Similar as in other languages but
+<br/>
 
 ::left::
 
-<v-click>
+Use `func` keyword to declare a function.
 
-For the `if` statements:
-- Parenteshis `()` are not required inside conditions
-- Brackets `{}` are always required around the body
-</v-click>
+Return type(s) go at the end of the function.
 
-<v-click>
+Can omit a type in the parameter list if it is the same for the previous argument.
 
-For the `switch` statements:
-- __Can switch on values of any type__
-- `case` values are of the same type of the value on `switch`
-- The `break` keyword is implied
-</v-click>
+A function is also a _type_.
 
-<v-click>
+- It's zero value is `nil`
 
-⚠️ __`switch` statements are preferred to `if/else`__
-</v-click>
 
 ::right::
 
-```go{all|1-4|6-20|13-20|all}{at:1}
-var i int
-if i > 0 {
-	fmt.Println(i)
-}
-
-switch i {
-  case 0:
-    log.Print("zero")
-  default: // good practise to always add it
-    log.Print(i)
-}
-
-switch { // == switch true
-case i+2 == 10-i:
-	fmt.Printf(“i+2 == 10-i holds for %d\n”, i)
-case float64(i)/10.0 > math.Sqrt(float64(i)):
-	fmt.Printf(“i/10.0 > sqrt(i) holds for %d\n”, i)
-default:
-    fmt.Println(i)
-}
-
+```go
+// multiple return values
+func parseColor(hex string) (color.RGBA, error) {...}
+// type is omitted for parameters that share the same type
+func sum(a, b int) int {...}
 ```
+
+---
+transition: fade-out
+---
+
+# Scopes
+
+⚠️ __Go is case sensitive__
+
+<v-clicks>
+
+To reference a symbol with __public__ scope have it start with an __Uppercase__ letter
+
+Symbols that have a public scope are said to be __exported__
+
+Otherwise, they start with a __lowercase__ letter and are __unexported__, which means that they are __accessible only to the package__ where they are located
+
+```go
+package myPackage
+
+// Exported/public symbols
+type Age int
+func Sum(a, b int) int { return a + b }
+const BaseAge = Age(0)
+var ErrAgeNotFound error // global variable: bad practice
+
+// Unexported symbols: available only to myPackage packaged
+func sum(a, b int) int { return a + b }
+var errAgeNotFound error // package-level variable: to avoid as well
+```
+</v-clicks>
 
 ---
 transition: fade-out
 layout: two-cols-header
 ---
 
-# Steps for Milestone 1
+# Steps for Milestone 3
 
 Writing text to a file: use pkg.go.dev to read the content of the packages
 
