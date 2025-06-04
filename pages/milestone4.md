@@ -154,39 +154,68 @@ Bonus steps:
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/mcaci/goWorkshop101code/output"
+	"github.com/mcaci/goWorkshop101code/parse"
 )
 
 func main() {
-	f, err := os.Create("./out/text")
+	input, err := os.ReadFile("input")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Fprintln(f, "Hello World!")
-	f.Close()
+	lines := bytes.Split(input, []byte{'\n'})
+	w := output.NewDiscard()
+	for _, line := range lines {
+		fmt.Fprintln(w, parse.Parse(string(line)))
+	}
 }
 ```
 
 ```go{all|9,17|14-16|all}
+package output
+
+import "log"
+
+type Discard struct {
+	count int
+}
+
+func NewDiscard() *Discard {
+	return &Discard{}
+}
+
+func (d *Discard) Write(p []byte) (n int, err error) {
+	log.Printf("Discarding output: %q", string(p))
+	d.count++
+	log.Printf("Discarded %d lines so far", d.count)
+	return 0, nil
+}
+```
+
+```go{all|9,17|14-16|all}
+package output
+
 import (
-	"flag"
 	"fmt"
-	"log"
-	"os"
+	"testing"
 )
 
-func main() {
-	flag.Parse()
-	f, err := os.Create("./out/text")
-	if err != nil {
-		log.Fatal(err)
+func TestDiscard(t *testing.T) {
+	input := []byte("true")
+	d := NewDiscard()
+	d.Write(input)
+	if d.count != 1 {
+		t.Errorf("Expected count of discarded messages to be 1, got %d", d.count)
 	}
-  // defer keyword delegates the execution of the 
-  // function call at the end of the function
-	defer f.Close()
-	fmt.Fprintln(f, flag.Args())
+	fmt.Fprint(d, "This should not be printed")
+	if d.count != 2 {
+		t.Errorf("Expected count of discarded messages to be 2, got %d", d.count)
+	}
 }
 ```
 ````

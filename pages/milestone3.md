@@ -155,39 +155,67 @@ Bonus steps:
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/mcaci/goWorkshop101code/parse"
 )
 
 func main() {
-	f, err := os.Create("./out/text")
+	input, err := os.ReadFile("input")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Fprintln(f, "Hello World!")
-	f.Close()
+	output, err := os.Create("output")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer output.Close()
+	lines := bytes.Split(input, []byte{'\n'})
+	for _, line := range lines {
+		fmt.Fprintln(output, parse.Parse(string(line)))
+	}
 }
 ```
 
 ```go{all|9,17|14-16|all}
+package parse
+
 import (
-	"flag"
-	"fmt"
-	"log"
-	"os"
+	"strconv"
 )
 
-func main() {
-	flag.Parse()
-	f, err := os.Create("./out/text")
-	if err != nil {
-		log.Fatal(err)
+func Parse(input string) string {
+	if _, err := strconv.ParseBool(input); err == nil {
+		return "bool: " + input
 	}
-  // defer keyword delegates the execution of the 
-  // function call at the end of the function
-	defer f.Close()
-	fmt.Fprintln(f, flag.Args())
+	if _, err := strconv.Atoi(input); err == nil {
+		return "int: " + input
+	}
+	if _, err := strconv.ParseFloat(input, 64); err == nil {
+		return "float: " + input
+	}
+	return "string: " + input
+}
+
+```
+
+```go{all|9,17|14-16|all}
+package parse
+
+import (
+	"strings"
+	"testing"
+)
+
+func TestParseBool(t *testing.T) {
+	input := "true"
+	result := Parse(input)
+	if !strings.HasPrefix(result, "bool") {
+		t.Errorf("Parse(%q) = %q; Should start with %q", input, result, "bool")
+	}
 }
 ```
 ````

@@ -157,39 +157,78 @@ Bonus steps:
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/mcaci/goWorkshop101code/parse"
 )
 
 func main() {
-	f, err := os.Create("./out/text")
+	input, err := os.ReadFile("input")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Fprintln(f, "Hello World!")
-	f.Close()
+	lines := bytes.Split(input, []byte{'\n'})
+	inChan := make(chan string)
+	for _, line := range lines {
+		go func(line string) {
+			inChan <- string(line)
+		}(string(line))
+		fmt.Println(<-parse.ConcParse(inChan))
+	}
 }
 ```
 
 ```go{all|9,17|14-16|all}
+package parse
+
+func ConcParse(input <-chan string) chan string {
+	out := make(chan string)
+	go func() {
+		select {
+		case v := <-input:
+			out <- Parse(v)
+		}
+	}()
+	return out
+}
+```
+
+```go{all|9,17|14-16|all}
+package parse
+
 import (
-	"flag"
-	"fmt"
-	"log"
-	"os"
+	"strings"
+	"testing"
 )
 
-func main() {
-	flag.Parse()
-	f, err := os.Create("./out/text")
-	if err != nil {
-		log.Fatal(err)
+func TestConcParseBool(t *testing.T) {
+	input := "true"
+	c := make(chan string)
+	go func() { c <- input }()
+	output := ConcParse(c)
+	result := <-output
+	if !strings.HasPrefix(result, "bool") {
+		t.Errorf("ConcParse(%q) = %q; Should start with %q", input, result, "bool")
 	}
-  // defer keyword delegates the execution of the 
-  // function call at the end of the function
-	defer f.Close()
-	fmt.Fprintln(f, flag.Args())
+}
+```
+
+```go{all|9,17|14-16|all}
+package parse
+
+import (
+	"fmt"
+)
+
+func ExampleParse() {
+	inputs := []string{"true", "12", "12.3", "12ab"}
+	for _, input := range inputs {
+		result := Parse(input)
+		fmt.Printf("%s, ", result) // Output: bool: true, int: 12, float: 12.3, string: 12ab,
+	}
 }
 ```
 ````
