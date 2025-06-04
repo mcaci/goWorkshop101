@@ -50,12 +50,12 @@ exportFilename: go101
 
 ---
 src: ./pages/intro.md
-hide: true
+hide: false
 ---
 
 ---
 src: ./pages/helloworld.md
-hide: true
+hide: false
 ---
 
 ---
@@ -70,17 +70,22 @@ hide: false
 
 ---
 src: ./pages/milestone3.md
-hide: true
+hide: false
 ---
 
 ---
 src: ./pages/milestone4.md
-hide: true
+hide: false
+---
+
+---
+src: ./pages/milestone5.md
+hide: false
 ---
 
 ---
 src: ./pages/conclusions.md
-hide: true
+hide: false
 ---
 
 ---
