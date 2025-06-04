@@ -3,25 +3,23 @@ transition: fade-out
 layout: lblue-fact
 ---
 
-Let's Go: Milestone 1
+Let's Go: Milestone 3
 
 ---
 transition: fade-out
 ---
 
-# Milestone 1
+# Milestone 3
 
 Writing text to a file
 
-Objective: Update the hello world example to create a file and write “hello world” on it
-
-Bonus: customize the text to write
+Objective: Extract the code of milestone 2 in a different package and add unit tests
 
 <v-click>
 
 For this milestone we will:
-- Introduce __varibles__ and __conditionals__ in Go
-- Use __functions calls__ to the standard library as seen in the "hello world" example
+- Introduce __packages and imports__ and __exported/unexported__ in Go
+- __unit tests__ using the standard library
 </v-click>
 
 ---

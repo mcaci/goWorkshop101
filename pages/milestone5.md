@@ -3,25 +3,25 @@ transition: fade-out
 layout: lblue-fact
 ---
 
-Let's Go: Milestone 1
+Let's Go: Milestone 5
 
 ---
 transition: fade-out
 ---
 
-# Milestone 1
+# Milestone 5
 
-Writing text to a file
+Introducing concurrency
 
-Objective: Update the hello world example to create a file and write “hello world” on it
+Objective: Update the code from milestone 3 to make it work concurrently
 
-Bonus: customize the text to write
+Bonus: Write documentation examples, benchmark and fuzz tests
 
 <v-click>
 
 For this milestone we will:
-- Introduce __varibles__ and __conditionals__ in Go
-- Use __functions calls__ to the standard library as seen in the "hello world" example
+- Introduce __goroutines__ and __channels__ in Go
+- Introduce __documentation examples__, __fuzz tests__ and __benchmarks__ in Go
 </v-click>
 
 ---

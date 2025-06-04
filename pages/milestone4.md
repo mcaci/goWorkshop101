@@ -3,25 +3,22 @@ transition: fade-out
 layout: lblue-fact
 ---
 
-Let's Go: Milestone 1
+Let's Go: Milestone 4
 
 ---
 transition: fade-out
 ---
 
-# Milestone 1
+# Milestone 4
 
-Writing text to a file
+Playing with interfaces
 
-Objective: Update the hello world example to create a file and write “hello world” on it
-
-Bonus: customize the text to write
+Objective: Create a type that implements the writer interface and replaces the output file with it
 
 <v-click>
 
 For this milestone we will:
-- Introduce __varibles__ and __conditionals__ in Go
-- Use __functions calls__ to the standard library as seen in the "hello world" example
+- Introduce __custom types, methods and interfaces__
 </v-click>
 
 ---
